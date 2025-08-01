@@ -68,34 +68,31 @@ def main():
     seen_ids = set()
     villes_cibles = ["lille", "villeneuve", "agen"]
 
-    while True:
-        logements = fetch_logements(PAYLOAD_TEMPLATE)
+    logements = fetch_logements(PAYLOAD_TEMPLATE)
 
-        # Filtrer par ville
-        filtered_logements = []
-        for logement in logements:
-            adresse = logement.get("residence", {}).get("address", "").lower()
-            if any(ville in adresse for ville in villes_cibles):
-                filtered_logements.append(logement)
+    # Filtrer par ville
+    filtered_logements = []
+    for logement in logements:
+        adresse = logement.get("residence", {}).get("address", "").lower()
+        if any(ville in adresse for ville in villes_cibles):
+            filtered_logements.append(logement)
 
-        new_logements = []
-        for logement in filtered_logements:
-            logement_id = logement.get('id')
-            available = logement.get('available', False)
-            ville = logement.get('residence', {}).get('address', '')
-            label = logement.get('label', 'Sans nom')
-            if available and logement_id not in seen_ids:
-                seen_ids.add(logement_id)
-                info = f"Logement disponible : {label}\nAdresse : {ville}\nID : {logement_id}\n"
-                new_logements.append(info)
+    new_logements = []
+    for logement in filtered_logements:
+        logement_id = logement.get('id')
+        available = logement.get('available', False)
+        ville = logement.get('residence', {}).get('address', '')
+        label = logement.get('label', 'Sans nom')
+        if available and logement_id not in seen_ids:
+            seen_ids.add(logement_id)
+            info = f"Logement disponible : {label}\nAdresse : {ville}\nID : {logement_id}\n"
+            new_logements.append(info)
 
-        if new_logements:
-            message = "Nouveaux logements disponibles:\n\n" + "\n".join(new_logements)
-            send_email("Notification CROUS: logement disponible", message)
-        else:
-            print("Aucun nouveau logement disponible pour le moment.")
-        
-        time.sleep(600)  # attente 10 min
+    if new_logements:
+        message = "Nouveaux logements disponibles:\n\n" + "\n".join(new_logements)
+        send_email("Notification CROUS: logement disponible", message)
+    else:
+        print("Aucun nouveau logement disponible pour le moment.")
 
 if __name__ == "__main__":
     main()
