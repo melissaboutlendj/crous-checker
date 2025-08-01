@@ -83,7 +83,7 @@ def main():
         available = logement.get('available', False)
         ville = logement.get('residence', {}).get('address', '').lower()
         label = logement.get('label', 'Sans nom')
-        if available and logement_id not in seen_ids:
+        if available:
             seen_ids.add(logement_id)
             info = f"Logement disponible : {label}\nAdresse : {ville}\nID : {logement_id}\n"
             new_logements.append(info)
