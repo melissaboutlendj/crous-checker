@@ -5,9 +5,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 # Config Email
-SMTP_EMAIL = "melissaboutlendj@gmail.com"
-SMTP_PASSWORD = "vhca hnru xgiu hmbc"  # mot de passe application Gmail
-EMAIL_DEST = "melissaboutlendj@gmail.com"
+import os
+
+SMTP_EMAIL = os.getenv("SMTP_EMAIL")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+EMAIL_DEST = os.getenv("EMAIL_DEST")
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 
