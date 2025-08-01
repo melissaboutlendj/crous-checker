@@ -94,5 +94,13 @@ def main():
     else:
         print("Aucun nouveau logement disponible pour le moment.")
 
+
+
+
+
 if __name__ == "__main__":
     main()
+
+print(f"SMTP_EMAIL: {SMTP_EMAIL}")
+print(f"EMAIL_DEST: {EMAIL_DEST}")
+print(f"SMTP_PASSWORD est défini ? {'Oui' if SMTP_PASSWORD else 'Non'}")
