@@ -66,7 +66,7 @@ def fetch_logements(payload):
 
 def main():
     seen_ids = set()
-    villes_cibles = ["lille", "villeneuve", "agen"]
+    villes_cibles = ["lille", "villeneuve", "agen", "rennes"]  # Ajout de "rennes"
 
     logements = fetch_logements(PAYLOAD_TEMPLATE)
 
@@ -81,12 +81,14 @@ def main():
     for logement in filtered_logements:
         logement_id = logement.get('id')
         available = logement.get('available', False)
-        ville = logement.get('residence', {}).get('address', '')
+        ville = logement.get('residence', {}).get('address', '').lower()
         label = logement.get('label', 'Sans nom')
         if available and logement_id not in seen_ids:
             seen_ids.add(logement_id)
             info = f"Logement disponible : {label}\nAdresse : {ville}\nID : {logement_id}\n"
             new_logements.append(info)
+            if "rennes" in ville:
+                print(">>> Nouveau logement à Rennes détecté ! <<<")  # Message spécial Rennes
 
     if new_logements:
         message = "Nouveaux logements disponibles:\n\n" + "\n".join(new_logements)
