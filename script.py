@@ -26,8 +26,8 @@ PAYLOAD_TEMPLATE = {
     "occupationModes": [],
 "location": [
     {"lon": 3.057256, "lat": 50.62925},    # Lille
-    {"lon": 3.147193, "lat": 50.615554},   # Villeneuve d’Ascq
-    {"lon": 0.6278, "lat": 44.2148}        # Agen approx
+    {"lon": 3.147193, "lat": 50.615554}   # Villeneuve d’Ascq
+#    {"lon": 0.6278, "lat": 44.2148}        # Agen approx
 
     ],
     "price": {"max": 10000000},
@@ -66,7 +66,7 @@ def fetch_logements(payload):
 
 def main():
     seen_ids = set()
-    villes_cibles = ["lille", "villeneuve", "agen", "rennes"]  # Ajout de "rennes"
+    villes_cibles = ["lille", "villeneuve", "rennes"]  # Ajout de "rennes"
 
     logements = fetch_logements(PAYLOAD_TEMPLATE)
 
