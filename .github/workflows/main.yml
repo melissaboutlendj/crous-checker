@@ -2,8 +2,8 @@ name: Crous Checker
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # toutes les 30 minutes
-  workflow_dispatch:  # permet de lancer manuellement le workflow depuis GitHub
+    - cron: '*/10 * * * *'  # toutes les 10 minutes
+  workflow_dispatch:
 
 jobs:
   run-script:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'  # ou version que tu veux
+          python-version: '3.10'
 
       - name: Install dependencies
         run: |
@@ -25,6 +25,7 @@ jobs:
 
       - name: Run script
         env:
-          EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_DEST: ${{ secrets.EMAIL_DEST }}
         run: python script.py
