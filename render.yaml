@@ -1,0 +1,6 @@
+services:
+  - type: worker
+    name: crous-checker
+    runtime: python
+    buildCommand: ""
+    startCommand: python script.py
